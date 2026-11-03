@@ -63,3 +63,10 @@ def test_mock_is_not_mounted_by_default(monkeypatch):
 
     importlib.reload(lumio.main)
     assert TestClient(lumio.main.app).get("/mock/hubspot").status_code == 404
+
+
+def test_reset_empties_the_contacts_so_the_demo_can_be_replayed(http, tmp_path):
+    deliver(http, settings(tmp_path), decision())
+    assert http.post("/mock/hubspot/reset").json() == {"status": "ok"}
+    again = deliver(http, settings(tmp_path), decision())
+    assert again["hubspot"] == HUBSPOT_SENT_TO_MOCK

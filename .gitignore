@@ -6,3 +6,6 @@ __pycache__/
 data/decisions.csv
 data/outbox.jsonl
 *.pdf
+
+# Livrables envoyés à part (explication .docx, vidéo)
+livrables/

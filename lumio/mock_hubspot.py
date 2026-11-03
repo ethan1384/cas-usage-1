@@ -51,6 +51,13 @@ def create_contact(body: dict, authorization: str = Header(default="")) -> JSONR
     return JSONResponse(contact, status_code=201)
 
 
+@router.post("/reset")
+def reset_contacts() -> dict:
+    """Vide les contacts reçus, pour rejouer une démo sans redémarrer le serveur."""
+    reset()
+    return {"status": "ok"}
+
+
 def render_page(contacts: list[dict]) -> str:
     rows = []
     for contact in reversed(contacts):  # les plus récents en haut
